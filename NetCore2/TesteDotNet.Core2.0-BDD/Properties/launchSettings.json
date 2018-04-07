@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ESPP.WebHook.Exemplo.BDD": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "URL_WEBHOOK_DESTINO": "http://localhost:53113"
+      }
+    }
+  }
+}

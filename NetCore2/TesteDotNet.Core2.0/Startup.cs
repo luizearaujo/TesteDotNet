@@ -2,25 +2,39 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.IO;
+using TesteDotNet.Core2_0.Domains;
+using TesteDotNet.Core2_0.Models;
+using TesteDotNet.Core2_0.Repositories;
+using TesteDotNet.Core2_0.Repositories.Base;
+using TesteDotNet.Core2_0.Services;
+using TesteDotNet.Core2_0.Services.Base;
 
-namespace TesteDotNet.Core2._0
+namespace TesteDotNet.Core2_0
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        public Startup(IHostingEnvironment env)
+        {
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: false)
+                .AddEnvironmentVariables()
+                .Build();
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IRepository<Categoria>, CategoriaRepository>();
+            services.AddTransient<IRepository<Item>, ItemRepository>();
+            services.AddTransient<IService<ItemViewModel>, ItemService>();
+
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())

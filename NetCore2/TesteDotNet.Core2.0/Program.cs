@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace TesteDotNet.Core2._0
+namespace TesteDotNet.Core2_0
 {
     public class Program
     {
