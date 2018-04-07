@@ -1,6 +1,6 @@
 using System;
 
-namespace TesteDotNet.Core2._0.Models
+namespace TesteDotNet.Core2_0.Models
 {
     public class ErrorViewModel
     {
